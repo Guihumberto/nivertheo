@@ -49,7 +49,7 @@ body {
 
 .title{
   position: absolute;
-  top: 270px;
+  top: 0px;
   width: 500px;
   z-index: 2;
   color: white;
