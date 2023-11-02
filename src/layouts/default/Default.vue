@@ -2,7 +2,7 @@
   <v-app>
     <div class="wrapper">
       <div :class=" generalStore.readCharlie ? 'charlieGo' : 'charlie'">
-        <img src="@/assets/charlie.png" />
+        <img src="@/assets/charlie.png" @click="generalStore.changeCharlie(true)"/>
       </div>
       <div class="title">
         <h1 class="text-center">Aniversário do <br> <span>Theodoro</span></h1>
