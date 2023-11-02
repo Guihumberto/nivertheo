@@ -42,7 +42,7 @@
           color="white"
         >
         </v-text-field>
-       <v-btn @click="confirm = !confirm">Confirmar</v-btn>
+       <v-btn @click="changeConfirm()">Confirmar</v-btn>
      </div>
      <div
       class="confirm-appears"
@@ -78,6 +78,10 @@
       changeDate(){
         this.date = !this.date
         generalStore.changeCharlie(this.date)
+      },
+      changeConfirm(){
+        this.confirm = !this.confirm
+        generalStore.changeCharlie(this.confirm)
       }
     }
   }
