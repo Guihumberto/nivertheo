@@ -4,7 +4,7 @@
         <v-btn
           variant="outlined"
           color="white"
-          @click="date = !date"
+          @click="changeDate()"
         >
           <v-icon
             size="22"
@@ -58,6 +58,8 @@
 </template>
 
 <script>
+  import { useGeneralStore } from '@/store/GeneralStore'
+  const generalStore = useGeneralStore()
   export default {
     data(){
       return{
@@ -70,6 +72,12 @@
         if(!val){
           this.confirm = true
         }
+      }
+    },
+    methods:{
+      changeDate(){
+        this.date = !this.date
+        generalStore.changeCharlie(this.date)
       }
     }
   }

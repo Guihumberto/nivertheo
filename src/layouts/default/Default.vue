@@ -1,11 +1,11 @@
 <template>
   <v-app>
     <div class="wrapper">
-      <div class="charlie">
+      <div :class=" generalStore.readCharlie ? 'charlieGo' : 'charlie'">
         <img src="@/assets/charlie.png" />
       </div>
       <div class="title">
-        <h1 class="text-center">Aniversário de 2 Anos do <br> Theodoro</h1>
+        <h1 class="text-center">Aniversário do <br> <span>Theodoro</span></h1>
       </div>
       <default-view />
     </div>
@@ -14,6 +14,8 @@
 
 <script setup>
   import DefaultView from './View.vue'
+  import { useGeneralStore } from '@/store/GeneralStore'
+  const generalStore = useGeneralStore()
 </script>
 
 <style>
@@ -47,17 +49,35 @@ body {
   z-index: 1;
 }
 
+.charlieGo{
+  position: absolute;
+  top: -30px;
+  animation: flyTopGo 6s ease forwards;
+  z-index: 1;
+}
+
 .title{
   position: absolute;
   top: 0px;
-  width: 500px;
+  min-width: 300px;
   z-index: 2;
-  color: white;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: #661515;
   opacity: 0;
   animation: appear 5s ease forwards;
   animation-delay: 1.5s;
+}
+
+.title h1 {
+  font-family: "Agbalumo";
+  letter-spacing: .1cap;
+  color: rgb(226, 219, 176);
+  -webkit-text-stroke-color: #000;
+  line-height: 1.2;
+}
+.title h1 span {
+  font-family: "Poppins", sans-serif;
+  color: rgb(248, 224, 71);
+  -webkit-text-stroke-width: .2px;
+  -webkit-text-stroke-color: #000;
 }
 
 @keyframes flyTop {
@@ -66,6 +86,18 @@ body {
   }
   100%{
     transform: translateY(0);
+  }
+}
+
+@keyframes flyTopGo {
+  0%{
+    transform: translateY(0);
+  }
+  50%{
+    transform: translateY(400px);
+  }
+  100%{
+    transform: translateY(-500px);
   }
 }
 
