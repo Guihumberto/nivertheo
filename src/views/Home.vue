@@ -1,15 +1,12 @@
 <template>
    <div class="container" :class="date ? 'cont500' : 'cont100'">
-     <div class="btn-box-open-confirm">
+     <div class="btn-box-open-confirm zigzag">
         <v-btn
           variant="outlined"
           color="white"
           @click="changeDate()"
         >
-          <v-icon
-            size="22"
-            color="success" class="mr-1">mdi-check-decagram</v-icon>
-          Confirmar Presença
+          <span class="textcc">Confirmar Presença</span>
         </v-btn>
      </div>
      <div class="date-party" :class="!date ? 'd-none' : ''">
@@ -81,7 +78,7 @@
       },
       changeConfirm(){
         this.confirm = !this.confirm
-        generalStore.changeCharlie(this.confirm)
+        generalStore.changeConfirm(this.confirm)
       }
     }
   }
@@ -173,5 +170,25 @@
   border-radius: 16px;
   padding: 15px;
   background: rgb(226, 86, 86);
+}
+.box {
+  width: 800px;
+  background: #000;
+  border: solid 2px #000;
+  padding: 10px;
+  text-align: center;
+  margin-top: 10px;
+}
+.zigzag {
+  background: linear-gradient(125deg, #fdfc13 25%, transparent 25%) -50px 0,
+        linear-gradient(-125deg, #fdfc13 25%, transparent 25%) -50px 0,
+        linear-gradient(35deg, #fdfc13 25%, #000 25%),
+        linear-gradient(-65deg, #fdfc13 25%, #000 25%);
+    background-size: 100px 100px;
+}
+.textcc{
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #fc1313;
+  font-weight: 500;
 }
 </style>
