@@ -4,24 +4,24 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    component: () => import('@/layouts/default/Default.vue'),
+    component: () => import('@/layouts/default/DefaultTwo.vue'),
     children: [
       {
         path: '',
         name: 'Home',
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '@/views/Home2.vue'),
       },
     ],
   },
-  {
-    path: '/test',
-    component: () => import('@/layouts/default/LayoutTwo.vue'),
-    children: [
-      {
-        path: '/test', name: 'Test', component: () => import('@/views/Blog.vue'),
-      },
-    ],
-  },
+  // {
+  //   path: '/test',
+  //   component: () => impor@/layouts/default/Default.vuevue'),
+  //   children: [
+  //     {
+  //       path: '/test', name: 'Test', component: () => impor@/views/Home.vuevue'),
+  //     },
+  //   ],
+  // },
 ]
 
 const router = createRouter({
