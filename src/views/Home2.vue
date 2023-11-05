@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapperContent" :class="date ? 'cont500' : 'cont100'">
-    <div class="btn-box-open-confirm zigzag">
+   <div class="container" :class="date ? 'cont500' : 'cont100'">
+     <div class="btn-box-open-confirm zigzag">
         <v-btn
           variant="outlined"
           color="white"
@@ -8,55 +8,56 @@
         >
           <span class="textcc">Confirmar Presença</span>
         </v-btn>
-    </div>
-    <div class="date-party" :class="!date ? 'd-none' : ''">
-      <v-icon size="80" color="yellow">mdi-gift</v-icon>
-      <div class="datehour">
-        <p class="date">11/11</p>
-        <p class="semana">Sábado</p>
-        <p class="hour">a partir das 16hrs</p>
-      </div>
-    </div>
-    <div
-      class="confirm-box" :class="!date ? 'd-none' : ''"
-      v-if="confirm"
-    >
-      <v-text-field
-        class="form"
-        clearable
-        label="Nome"
-        variant="outlined"
-        placeholder="Digite seu nome"
+     </div>
+     <div class="date-party" :class="!date ? 'd-none' : ''">
+        <v-icon size="80" color="yellow">mdi-gift</v-icon>
+        <div class="datehour">
+          <p class="date">11/11</p>
+          <p class="semana">Sábado</p>
+          <p class="hour">a partir das 16hrs</p>
+        </div>
+     </div>
+     <div
+        class="confirm-box" :class="!date ? 'd-none' : ''"
+        v-if="confirm"
       >
-      </v-text-field>
-      <v-text-field
-        class="form"
-        clearable
-        label="Qtd de Pessoas"
-        placeholder="crianças e adultos"
-        type="number"
-        variant="outlined"
-      >
-      </v-text-field>
-      <v-btn @click="changeConfirm()" class="zigzag">Confirmar</v-btn>
-    </div>
-    <div
-    class="confirm-appears"
-    v-else
-    >
-    <p class="font-weight-bold text-center mb-2">Confirmação enviada</p>
-    <p>Endereço: Av. General Arthur Carvalho, 500,
-      Na área de lazer do Cond Green Park Village, Turu, Casa 28,
-      ao lado do motel aquarium <br>
-    </p>
-    </div>
-  </div>
+       <v-text-field
+          class="form text-white"
+          clearable
+          label="Nome"
+          variant="outlined"
+          color="white"
+        >
+        </v-text-field>
+        <v-text-field
+          class="form text-white"
+          clearable
+          label="Qtd de Pessoas"
+          placeholder="crianças e adultos"
+          type="number"
+          variant="outlined"
+          color="white"
+        >
+        </v-text-field>
+       <v-btn @click="changeConfirm()">Confirmar</v-btn>
+     </div>
+     <div
+      class="confirm-appears"
+      v-else
+     >
+      <p class="font-weight-bold text-center mb-2">Confirmação enviada</p>
+      <p>Endereço: Av. General Arthur Carvalho, 500,
+        Na área de lazer do Cond Green Park Village, Turu, Casa 28,
+        ao lado do motel aquarium <br>
+      </p>
+     </div>
+   </div>
 </template>
 
 <script>
-    import { useGeneralStore } from '@/store/GeneralStore'
-    const generalStore = useGeneralStore()
-    export default {
+  import { useGeneralStore } from '@/store/GeneralStore'
+  const generalStore = useGeneralStore()
+  export default {
     data(){
       return{
         date: false,
@@ -81,10 +82,11 @@
       }
     }
   }
+
 </script>
 
-<style lang="scss" scoped>
-.wrapperContent{
+<style scoped>
+.container{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -93,7 +95,7 @@
   width: 400px;
   background: rgba(255, 255, 255, .1);
   border: 2px solid rgba(255, 255, 255, .2);
-  backdrop-filter: blur(5px);
+  backdrop-filter: (30px);
   border-radius: 16px;
   padding: 30px 20px;
   transition: height 1s ease;
@@ -116,6 +118,7 @@
   opacity: 0;
   animation: slideTop 2s ease forwards;
   animation-delay: 1.5s;
+
 }
 .date-party {
   display: flex;
@@ -143,18 +146,17 @@
   align-items: center;
 }
 .date{
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 700;
-  color: rgb(20, 19, 19);
+  color: white;
   line-height: 2;
 }
 .semana{
-  color: rgb(18, 18, 19);
-  font-size: 25px;
-  font-weight: 700;
+  color: aliceblue;
+  font-size: 15px;
 }
 .hour{
-  color: rgb(26, 27, 29);
+  color: aliceblue;
 }
 .form {
   width: 100%;
@@ -178,20 +180,15 @@
   margin-top: 10px;
 }
 .zigzag {
-  background: #fdfc13,
+  background: linear-gradient(125deg, #fdfc13 25%, transparent 25%) -50px 0,
+        linear-gradient(-125deg, #fdfc13 25%, transparent 25%) -50px 0,
+        linear-gradient(35deg, #fdfc13 25%, #000 25%),
+        linear-gradient(-65deg, #fdfc13 25%, #000 25%);
+    background-size: 100px 100px;
 }
 .textcc{
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #fc1313;
   font-weight: 500;
-}
-@media (max-width: 570px){
-  .wrapperContent{
-    width: 380px;
-    padding: 20px 10px;
-  }
-  .cont500 {
-    height: 500px;
-  }
 }
 </style>
