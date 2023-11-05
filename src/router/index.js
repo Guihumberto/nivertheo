@@ -4,21 +4,21 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    component: () => import('@/layouts/default/LayoutTwo.vue'),
+    component: () => import('@/layouts/default/Default.vue'),
     children: [
       {
         path: '',
         name: 'Home',
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Blog.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
       },
     ],
   },
   {
     path: '/test',
-    component: () => import('@/layouts/default/Default.vue'),
+    component: () => import('@/layouts/default/LayoutTwo.vue'),
     children: [
       {
-        path: '/test', name: 'Test', component: () => import('@/views/home.vue'),
+        path: '/test', name: 'Test', component: () => import('@/views/Blog.vue'),
       },
     ],
   },
