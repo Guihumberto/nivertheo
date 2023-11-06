@@ -18,49 +18,73 @@
       </div>
     </div>
     <div
-      class="confirm-box" :class="!date ? 'd-none' : ''"
+
       v-if="confirm"
     >
+    <v-form @submit.prevent="changeConfirm()" ref="form" class="confirm-box" :class="!date ? 'd-none' : ''">
       <v-text-field
         class="form"
         clearable
         label="Nome"
         variant="outlined"
-        placeholder="Digite seu nome"
+        placeholder="Nome e sobrenome"
+        v-model.trim="mailConfirm.name"
+        :rules="[rules.required, rules.minname]"
       >
       </v-text-field>
       <v-text-field
-        class="form"
+        class="form my-2"
         clearable
         label="Qtd de Pessoas"
         placeholder="crianças e adultos"
         type="number"
         variant="outlined"
+        v-model.number.trim="mailConfirm.qtd"
+        :rules="[rules.required, rules.numvalid]"
       >
       </v-text-field>
-      <v-btn @click="changeConfirm()" class="zigzag">Confirmar</v-btn>
+      <v-btn type="submit" class="zigzag">Confirmar</v-btn>
+    </v-form>
     </div>
     <div
-    class="confirm-appears"
-    v-else
+      class="confirm-appears"
+      v-else
     >
-    <p class="font-weight-bold text-center mb-2">Confirmação enviada</p>
-    <p>Endereço: Av. General Arthur Carvalho, 500,
-      Na área de lazer do Cond Green Park Village, Turu, Casa 28,
-      ao lado do motel aquarium <br>
-    </p>
+      <div v-if="!msgConfirm">
+        <p class="font-weight-bold text-center mb-2">Confirmação enviada</p>
+        <p>Endereço: Av. General Arthur Carvalho, 500,
+          Na área de lazer do Cond Green Park Village, Turu, Casa 28,
+          ao lado do motel aquarium <br>
+        </p>
+      </div>
+      <div v-else>
+        <p>{{ msgConfirm }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+    import emailjs from 'emailjs-com';
     import { useGeneralStore } from '@/store/GeneralStore'
     const generalStore = useGeneralStore()
     export default {
     data(){
       return{
         date: false,
-        confirm: true
+        confirm: true,
+        msgConfirm: '',
+        mailConfirm:{
+          from: 'juninho.joao@hotmail.com',
+          name: '',
+          qtd: '',
+          subject: "Confirmação Aniversário Theodoro"
+        },
+        rules:{
+            required: (value) => !!value || "Campo obrigatório",
+            numvalid: (v) => /[1, 2, 3, 4, 5]/.test(Number(v)) || "Máximo de 5 pessoas",
+            minname: (v) => (v||'').length >= 4 || "Mínimo 4 caracteres",
+        },
       }
     },
     watch:{
@@ -75,9 +99,32 @@
         this.date = !this.date
         generalStore.changeCharlie(this.date)
       },
-      changeConfirm(){
-        this.confirm = !this.confirm
-        generalStore.changeConfirm(this.confirm)
+      async changeConfirm(){
+        const { valid } = await this.$refs.form.validate()
+        if(valid){
+          this.confirm = !this.confirm
+          generalStore.changeConfirm(this.confirm)
+
+          const USER_ID = 'yYmVkZwwUEpuiuYFQ' ;
+          const SERVICE_ID = 'service_cxu6jof';
+          const TEMPLATE_ID = 'template_4tutf6g';
+
+          const emailParams = {
+            to_email: this.mailConfirm.from,
+            subject: this.mailConfirm.subject,
+            message: `Nome: ${this.mailConfirm.name} com o número de ${this.mailConfirm.qtd} Convidados`,
+          };
+
+          emailjs.send(SERVICE_ID, TEMPLATE_ID, emailParams, USER_ID).then(
+            (response) => {
+              console.log('Email sent successfully', response);
+            },
+            (error) => {
+              console.error('Email sending failed', error);
+              this.msgConfirm = "Erro!! Sua confirmação falhou"
+            }
+          );
+        }
       }
     }
   }
