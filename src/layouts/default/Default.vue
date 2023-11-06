@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="background: #93CBEE;">
     <v-main class="container">
       <div class="title square">
         <h1 class="text-center">Aniversário do <br> <span><span class="theo">Theo</span>doro</span></h1>

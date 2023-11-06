@@ -54,8 +54,11 @@
         <p class="font-weight-bold text-center mb-2">Confirmação enviada</p>
         <p>Endereço: Av. General Arthur Carvalho, 500,
           Na área de lazer do Cond Green Park Village, Turu, Casa 28,
-          ao lado do motel aquarium <br>
+          ao lado do motel aquarium. <a @click.prevent="copyAdress()" :class="copytext ? 'copiado' : 'copyadress'"> <v-icon class="mr-1" size="x-small">mdi-content-copy</v-icon>{{copytext ? 'Copiado' : 'Copiar'}}</a>
         </p>
+        <div class="mt-5 text-center">
+            <a class="linkgoogle" href="https://maps.app.goo.gl/v9TgTtmMcL8AgRGN8" target="_blank"> <v-icon size="small">mdi-google-maps</v-icon>Google Maps</a>
+          </div>
       </div>
       <div v-else>
         <p>{{ msgConfirm }}</p>
@@ -72,6 +75,7 @@
     data(){
       return{
         date: false,
+        copytext: false,
         confirm: true,
         msgConfirm: '',
         mailConfirm:{
@@ -118,6 +122,8 @@
           emailjs.send(SERVICE_ID, TEMPLATE_ID, emailParams, USER_ID).then(
             (response) => {
               console.log('Email sent successfully', response);
+              this.mailConfirm.name = ''
+              this.mailConfirm.qtd - ''
             },
             (error) => {
               console.error('Email sending failed', error);
@@ -125,6 +131,11 @@
             }
           );
         }
+      },
+      copyAdress(){
+        this.copytext = !this.copytext
+        const text = "Endereço: Av. General Arthur Carvalho, 500, Na área de lazer do Cond Green Park Village, Turu, Casa 28, ao lado do motel aquarium."
+        navigator.clipboard.writeText(text);
       }
     }
   }
@@ -240,5 +251,32 @@
   .cont500 {
     height: 500px;
   }
+}
+.linkgoogle{
+  text-decoration: none;
+  border: 1px solid #fff;
+  border-radius: 16px;
+  padding: 5px 10px;
+  color: #fff;
+  font-size: 15px;
+  transition: 1s ease;
+}
+.linkgoogle:hover{
+  color: #fc1313;
+  border: 1px solid #fc1313;
+  background: white;
+}
+.copyadress{
+  color: yellow;
+  transition: 1s ease;
+  font-size: 15px;
+}
+.copiado {
+  color: greenyellow;
+  transition: 1s ease;
+  font-size: 17px;
+}
+.copyadress:hover{
+  color: #e2dada;
 }
 </style>
